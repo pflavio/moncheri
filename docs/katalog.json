@@ -1,0 +1,195 @@
+[
+  {
+    "id": "shirt-h",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL",
+      "6XL",
+      "7XL",
+      "8XL"
+    ],
+    "productUrl": "https://www.strauss.com/de/de/arbeitsshirts/e-s-t-shirt-cotton-3100031-89301-1.html",
+    "photo": "https://cdn.strauss.com/de/assets/pdp/images/Three_MainImage_Crop_Desktop/product/1.Release.3100031/e_s_T-Shirt_cotton-182912-1-637595965781098313.jpg",
+    "model": "Strauss T-Shirt cotton",
+    "fit": "Herren",
+    "name": "Strauss T-Shirt cotton · Herren",
+    "colors": [
+      "Schwarz"
+    ],
+    "custom": false,
+    "baseCents": 1059,
+    "stitchCents": 1000
+  },
+  {
+    "id": "shirt-d",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL"
+    ],
+    "productUrl": "https://www.strauss.com/de/de/arbeitsshirts-damen/e-s-t-shirt-cotton-v-neck-damen-3100361-89531-1.html",
+    "photo": "https://cdn.strauss.com/de/assets/pdp/images/Three_MainImage_Crop_Desktop/product/1.Release.3100361/e_s_T-Shirt_cotton_V-Neck_Damen-294479-1-638761618939561979.jpg",
+    "model": "Strauss T-Shirt cotton",
+    "fit": "Damen",
+    "name": "Strauss T-Shirt cotton · Damen (V-Neck)",
+    "colors": [
+      "Schwarz"
+    ],
+    "custom": false,
+    "baseCents": 1131,
+    "stitchCents": 1000
+  },
+  {
+    "id": "polo-h",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL",
+      "6XL",
+      "7XL",
+      "8XL"
+    ],
+    "productUrl": "https://www.strauss.com/de/de/arbeits-polo-shirts/e-s-polo-shirt-cotton-3100690-89901-1.html",
+    "photo": "https://cdn.strauss.com/de/assets/pdp/images/Two_MainImage_Crop_Desktop/product/1.Release.3100690/e_s_Polo-Shirt_cotton-182838-1-637596043992478742.jpg",
+    "model": "Strauss Polo-Shirt cotton",
+    "fit": "Herren",
+    "name": "Strauss Polo-Shirt cotton · Herren",
+    "colors": [
+      "Schwarz"
+    ],
+    "custom": false,
+    "baseCents": 2011,
+    "stitchCents": 1000
+  },
+  {
+    "id": "polo-d",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL"
+    ],
+    "productUrl": "https://www.strauss.com/de/de/polo-shirts-damen/e-s-polo-shirt-cotton-damen-3100371-89551-1.html",
+    "photo": "https://cdn.strauss.com/de/assets/pdp/images/Two_MainImage_Desktop/product/1.Release.3100371/e_s_Polo-Shirt_cotton_Damen-8201-3-638453165280928087.png",
+    "model": "Strauss Polo-Shirt cotton",
+    "fit": "Damen",
+    "name": "Strauss Polo-Shirt cotton · Damen",
+    "colors": [
+      "Schwarz"
+    ],
+    "custom": false,
+    "baseCents": 2011,
+    "stitchCents": 1000
+  },
+  {
+    "id": "jacke-h",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL",
+      "6XL",
+      "7XL"
+    ],
+    "productUrl": "https://www.strauss.com/de/de/sweats-hoodies/e-s-hoody-sweatjacke-poly-cotton-3100240-89751-1.html",
+    "photo": "https://cdn.strauss.com/de/assets/pdp/images/Three_MainImage_Crop_Desktop/product/1.Release.3100240/e_s_Hoody-Sweatjacke_poly_cotton-286733-0-638525848376307013.jpg",
+    "model": "Strauss Kapuzen-Sweatjacke poly cotton",
+    "fit": "Herren",
+    "name": "Strauss Kapuzen-Sweatjacke poly cotton · Herren",
+    "colors": [
+      "Schwarz"
+    ],
+    "custom": false,
+    "baseCents": 4272,
+    "stitchCents": 1000
+  },
+  {
+    "id": "jacke-d",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "productUrl": "https://www.strauss.com/de/de/sweats-hoodies-damen/e-s-hoody-sweatjacke-poly-cotton-damen-3101380-88821-1.html",
+    "photo": "https://cdn.strauss.com/de/assets/pdp/images/Three_MainImage_Crop_Desktop/product/1.Release.3101380/e_s_Hoody-Sweatjacke_poly_cotton_Damen-293118-0-638645085292063142.jpg",
+    "model": "Strauss Kapuzen-Sweatjacke poly cotton",
+    "fit": "Damen",
+    "name": "Strauss Kapuzen-Sweatjacke poly cotton · Damen",
+    "colors": [
+      "Schwarz"
+    ],
+    "custom": false,
+    "baseCents": 3796,
+    "stitchCents": 1000
+  },
+  {
+    "id": "cap",
+    "sizes": [
+      "Youth",
+      "XS/S",
+      "S/M",
+      "L/XL",
+      "2XL"
+    ],
+    "productUrl": "https://www.flex-cap.de/Baseball-Cap-Flexfit-Classic-Schwarz-Fullcap-4816/",
+    "photo": "https://cdn.branditem.com/flex-cap/baseball-cap-flexfit-classic-schwarz-fullcap-4816/baseball-cap-flexfit-classic-schwarz-fullcap-hauptbild-1.jpg",
+    "model": "Flexfit 6277 Classic",
+    "fit": "",
+    "name": "Flexfit 6277 Classic",
+    "colors": [
+      "Schwarz"
+    ],
+    "custom": false,
+    "baseCents": 1295,
+    "stitchCents": 1000
+  },
+  {
+    "id": "tasche",
+    "sizes": [
+      "Für 3 Kugeln"
+    ],
+    "productUrl": "https://koelnspielt.de/Obut-Canvas-Tasche::106648.html",
+    "photo": "https://www.obut.com/308-gallery_default/sacoche-toile-noire.jpg",
+    "model": "Obut Canvas · Kugeltasche",
+    "fit": "",
+    "name": "Obut Canvas · Kugeltasche",
+    "colors": [
+      "Schwarz"
+    ],
+    "custom": true,
+    "baseCents": 1995,
+    "stitchCents": 1000,
+    "fallbackPhoto": "https://www.canadabillard.com/cdn/shop/products/BOCCE_CASE_OBUT_3_BALLS_BLACK_2.png?v=1664286167&width=1080"
+  }
+]
