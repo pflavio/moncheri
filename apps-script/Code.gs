@@ -19,11 +19,30 @@ function mitgliederlink_() {
   settings.getRange('B8:B9').setValues([[SITE_ + '#k=' + invite],[url + '#k=' + invite]]);
   SpreadsheetApp.getUi().alert('Die beiden Links stehen im Blatt „Einrichtung“. Nach der Freigabe in B5 kannst du den Mitgliederlink teilen.');
 }
-function doGet() {
+function doGet(e) {
+  const channel=e && e.parameter && e.parameter.bridge;
+  if(typeof channel==='string' && /^[a-f0-9-]{36}$/.test(channel)){
+    const html='<!doctype html><script>('+bridgeClient_.toString()+')('+JSON.stringify(channel)+');</script>';
+    return HtmlService.createHtmlOutput(html).setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+  }
   return HtmlService.createHtmlOutput(formular_())
     .setTitle('MonChéri · Merchandise')
     .addMetaTag('viewport','width=device-width, initial-scale=1')
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+// Runs inside the Apps Script HTML sandbox. Each reply goes to its own MessagePort.
+function bridgeClient_(channel) {
+  const allowed=['https://moncheri.pflavio.com','https://www.moncheri.pflavio.com'];
+  window.addEventListener('message',event=>{
+    const data=event.data, port=event.ports[0];
+    if(event.source!==window.top || !allowed.includes(event.origin) || !port ||
+       data?.type!=='moncheri-request' || data.channel!==channel || !Array.isArray(data.args))return;
+    const api=google.script.run.withSuccessHandler(value=>port.postMessage({value}))
+      .withFailureHandler(err=>port.postMessage({error:String(err.message||err)}));
+    if(data.method==='getCatalog')api.getCatalog(data.args[0]);
+    if(data.method==='submitOrder')api.submitOrder(data.args[0],data.args[1]);
+  });
+  for(const origin of allowed)window.top.postMessage({type:'moncheri-ready',channel},origin);
 }
 function bookFor_(token) {
   const props = PropertiesService.getScriptProperties();
@@ -90,7 +109,7 @@ function submitOrder(token,request) {
   const book=bookFor_(token);
   if(!request || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(request.key)) throw new Error('Bitte öffne das Formular erneut.');
   const name=plain_(request.name,60);
-  if(!name) throw new Error('Trage deinen Namen oder Spitznamen ein.');
+  if(!name) throw new Error('Trage deinen vollständigen Namen ein.');
   const lock=LockService.getScriptLock();lock.waitLock(15000);
   try {
     const sheet=book.getSheetByName('Bestellungen');
@@ -191,11 +210,12 @@ function formular_() {
     " .product summary .price{grid-area:2/2;align-self:start}",
     " .product summary .plus{grid-area:1/3/3/4}",
     "}",
+    ".price-note{margin:0 0 16px;color:var(--muted)}",
     "</style></head><body>",
-    "<div id=\"live-shell\" hidden><a id=\"direct\" target=\"_blank\" rel=\"noreferrer\">Merchandise-Formular in eigenem Fenster öffnen</a><iframe id=\"frame\" title=\"Bestellformular des Vereins\" referrerpolicy=\"no-referrer\"></iframe></div>",
+    "<iframe id=\"frame\" title=\"Verbindung zur Bestellverwaltung\" referrerpolicy=\"no-referrer\" hidden></iframe>",
     "<div id=\"page\"><header><div class=\"brand\"><img id=\"logo\" alt=\"MonChéri Pétanque\" src=\"https://assets.zyrosite.com/A3QEqxZZ8VSnn6x7/mon_chi_trans-YbNDp1VqNViX14VW.png\"><div><strong>MonChéri Pétanque</strong><small>TV Groß-Zimmern 1863 e.V.</small></div></div><a href=\"https://www.moncheri-petanque.de/\" target=\"_blank\" rel=\"noreferrer\">Vereinsseite</a></header>",
-    "<main><div class=\"hero\"><h1>Merchandise</h1><p>T-Shirt, Polo oder Sweatjacke mit unserem Vereinslogo? Such dir dein Modell aus. Wenn du es selbst mitbringst, wähle „Nur Stick“.</p></div><div id=\"notice\" class=\"notice\" role=\"status\">Bestellrunde wird geladen …</div>",
-    "<div class=\"layout\" id=\"shop\" hidden><figure id=\"preview\" hidden><img id=\"preview-photo\" referrerpolicy=\"no-referrer\" alt=\"\"><figcaption id=\"preview-caption\"></figcaption></figure><section class=\"box catalog\"><h2>Unsere Modelle</h2><div id=\"catalog\"></div></section><section class=\"box cart\"><h2>Deine Bestellung</h2><p id=\"empty\" class=\"empty\">Hier siehst du gleich deine Artikel und die Kosten für den Stick.</p><ul id=\"lines\"></ul><div id=\"subtotals\" class=\"subtotals\" hidden><div><span>Artikelkosten</span><span id=\"base-total\"></span></div><div><span>Stickkosten</span><span id=\"stitch-total\"></span></div></div><div class=\"total\"><span id=\"total-label\">Gesamt</span><strong id=\"total\">0,00 €</strong></div><form id=\"order\"><label>Name oder Spitzname<input id=\"who\" required maxlength=\"60\" autocomplete=\"off\" placeholder=\"Wie heißt du im Verein?\"></label><button id=\"send\" type=\"submit\" disabled>Bestellung abgeben</button></form><div id=\"status\" class=\"status\" role=\"status\"></div><details class=\"details\"><summary>Wer sieht meine Angaben?</summary><p>Philip nutzt deinen Namen, um deine Bestellung und deine Zahlung zuzuordnen. Die Stickerei bekommt eine Stückliste mit Modell, Farbe, Größe und gewünschtem Sticktext.</p><p id=\"privacy\" class=\"preserve\"></p></details></section></div>",
+    "<main><div class=\"hero\"><h1>Merchandise</h1><p>Such dir deine gewünschten Artikel aus. Wenn du selbst bestellst, wähle „Nur Stick“ und gib deine Artikel pünktlich bei mir ab.</p></div><div id=\"notice\" class=\"notice\" role=\"status\">Bestellrunde wird geladen …</div>",
+    "<p id=\"fallback\" hidden><a id=\"direct\" target=\"_blank\" rel=\"noreferrer\">Bisheriges Bestellformular öffnen</a> · Dort musst du deine Auswahl erneut eintragen.</p><div class=\"layout\" id=\"shop\" hidden><figure id=\"preview\" hidden><img id=\"preview-photo\" referrerpolicy=\"no-referrer\" alt=\"\"><figcaption id=\"preview-caption\"></figcaption></figure><section class=\"box catalog\"><h2>Unsere Modelle</h2><p class=\"price-note\">Die Preise in der Übersicht enthalten den Artikel und den Stick. Ein Überschuss aus der Sammelbestellung fließt in die Vereinskasse.</p><div id=\"catalog\"></div></section><section class=\"box cart\"><h2>Deine Bestellung</h2><p id=\"empty\" class=\"empty\">Hier siehst du gleich deine Artikel und die Kosten für den Stick.</p><ul id=\"lines\"></ul><div id=\"subtotals\" class=\"subtotals\" hidden><div><span>Artikelkosten</span><span id=\"base-total\"></span></div><div><span>Stickkosten</span><span id=\"stitch-total\"></span></div></div><div class=\"total\"><span id=\"total-label\">Gesamt</span><strong id=\"total\">0,00 €</strong></div><form id=\"order\"><label>Vollständiger Name<input id=\"who\" required maxlength=\"60\" autocomplete=\"name\" placeholder=\"Trag hier deinen Namen ein.\"></label><button id=\"send\" type=\"submit\" disabled>Bestellung abgeben</button></form><div id=\"status\" class=\"status\" role=\"status\"></div><details class=\"details\"><summary>Wer sieht meine Angaben?</summary><p>Philip nutzt deinen Namen, um deine Bestellung und deine Zahlung zuzuordnen. Die Stickerei bekommt eine Stückliste mit Modell, Farbe, Größe und gewünschtem Sticktext.</p><p id=\"privacy\" class=\"preserve\"></p></details></section></div>",
     "<section id=\"receipt\" class=\"box receipt\" tabindex=\"-1\" hidden><h2 id=\"receipt-title\">Bestellung eingegangen</h2><p>Dein Überweisungsbetrag<br><b id=\"receipt-total\"></b></p><p>Verwendungszweck<br><strong id=\"ref\"></strong></p><p id=\"payment\" class=\"preserve\"></p><p id=\"receipt-note\"></p></section>",
     "<div class=\"sr\" aria-live=\"polite\" id=\"announcer\"></div></main>",
     "<footer><span>MonChéri · Abteilung Pétanque</span><a href=\"https://www.moncheri-petanque.de/impressum\" target=\"_blank\" rel=\"noreferrer\">Impressum des Vereins</a><a href=\"https://www.moncheri-petanque.de/datenschutz\" target=\"_blank\" rel=\"noreferrer\">Datenschutz des Vereins</a></footer></div>",
@@ -210,7 +230,11 @@ function formular_() {
     "function label(txt,control){const n=el('label',txt);n.append(control);return n;}",
     "function stash(v){if(!storageKey)return;try{if(v)sessionStorage.setItem(storageKey,JSON.stringify(v));else sessionStorage.removeItem(storageKey)}catch{}}",
     "function cached(){try{return JSON.parse(sessionStorage.getItem(storageKey)||'null')}catch{return null}}",
-    "function rpc(method,...args){return new Promise((resolve,reject)=>{google.script.run.withSuccessHandler(resolve).withFailureHandler(reject)[method](...args);});}",
+    "function googleRpc(method,...args){return new Promise((resolve,reject)=>{google.script.run.withSuccessHandler(resolve).withFailureHandler(reject)[method](...args);});}",
+    "let memberRpc;",
+    "function rpc(method,...args){",
+    " return hosted ? googleRpc(method,...args) : memberRpc(method,...args);",
+    "}",
     "function groupedProducts(products) {",
     " const groups = new Map();",
     " for (const product of products) {",
@@ -265,7 +289,7 @@ function formular_() {
     " }",
     " function showPrice() {",
     "  const cost=quote();",
-    "  price.textContent=money(cost.cents);",
+    "  price.textContent=money(selected.cents);",
     "  amounts.textContent=Number.isInteger(cost.stitchCents)",
     "   ? 'Artikel '+money(cost.baseCents)+' + Stick '+money(cost.stitchCents)+' = '+money(cost.cents)+' je Stück'",
     "   : money(cost.cents)+' je Stück';",
@@ -336,50 +360,83 @@ function formular_() {
     "}",
     "$('order').onsubmit=async e=>{",
     " e.preventDefault();if(busy||!cart.length||(!ready&&!attempt))return;",
-    " if(!$('who').value.trim()){$('status').textContent='Bitte trage deinen Namen oder Spitznamen ein.';return;}",
+    " if(!$('who').value.trim()){$('status').textContent='Bitte trage deinen vollständigen Namen ein.';return;}",
     " if(demo){receipt({ref:'VORSCHAU',selfSupply:cart.some(x=>x.mode==='own'),total:cart.reduce((n,x)=>n+x.qty*x.cents,0)});return;}",
     " if(!attempt)attempt={key:crypto.randomUUID(),name:$('who').value.trim(),items:cart.map(x=>({...x}))};",
     " stash({pending:attempt});busy=true;$('status').textContent='';drawCart();",
     " try{const r=await rpc('submitOrder',token,attempt);r.selfSupply=attempt.items.some(x=>x.mode==='own');stash({receipt:r});receipt(r);}",
     " catch(err){const msg=String(err.message||err);",
-    " if(/Sortiment oder ein Preis|Runde ist geschlossen|Bestellrunde ist geschlossen|Texteingabe|kein Sticktext|Menge muss|Positionen|erneut|Spitznamen/.test(msg)){attempt=null;stash(null);}",
+    " if(/Sortiment oder ein Preis|Runde ist geschlossen|Bestellrunde ist geschlossen|Texteingabe|kein Sticktext|Menge muss|Positionen|erneut|vollständigen Namen|Spitznamen/.test(msg)){attempt=null;stash(null);}",
     " $('status').textContent=msg.replace(/^(ScriptError: |Exception: |Error: )+/,'')+(attempt?' Du kannst dieselbe Anfrage erneut senden.':'');}",
     " finally{busy=false;drawCart();}",
     "};",
-    "async function start(){",
-    " const hash=new URLSearchParams(location.hash.slice(1));",
-    " if(!hosted && hash.has('k')){",
-    "  const k=hash.get('k')||'';",
-    "  if(!/^[0-9a-f]{64}$/.test(k)){$('notice').textContent='Der Einladungslink ist unvollständig. Bitte öffne den vollständigen Link aus der Vereinsgruppe.';return;}",
-    "  try {",
-    "   const response=await fetch('./konfiguration.json',{cache:'no-store'});",
-    "   if(!response.ok)throw new Error();",
-    "   const cfg=await response.json();",
-    "   if(typeof cfg.webApp!=='string'||!/^https:\\/\\/script\\.google\\.com\\/macros\\/s\\/[A-Za-z0-9_-]{12,200}\\/exec$/.test(cfg.webApp))throw new Error();",
-    "   const url=cfg.webApp+'#k='+k;",
-    "   $('page').hidden=true;$('live-shell').hidden=false;$('direct').href=url;$('frame').src=url;",
-    "  } catch {$('notice').textContent='Die Vereinsdomain ist noch nicht mit dem Formular verbunden. Bitte nutze den Direktlink der Orga.';}",
-    "  return;",
-    " }",
-    " if(!hosted){",
-    "  demo=true;",
-    "  try{",
-    "   const response=await fetch('./katalog.json',{cache:'no-cache'});",
-    "   if(!response.ok)throw new Error();",
-    "   const items=await response.json();",
-    "   showCatalog({open:true,products:items.map(p=>({...p,cents:p.baseCents+p.stitchCents}))});",
-    "  }catch{$('notice').textContent='Der Katalog konnte nicht geladen werden. Bitte lade die Seite neu.';}",
-    "  return;",
-    " }",
-    " google.script.url.getLocation(async loc=>{",
-    "  token=new URLSearchParams(loc.hash||'').get('k')||'';storageKey='mc-v1-'+token;",
-    "  try{",
-    "   const data=await rpc('getCatalog',token),saved=cached();",
-    "   if(saved?.receipt){receipt(saved.receipt);return;}",
-    "   if(saved?.pending){attempt=saved.pending;cart=attempt.items;$('who').value=attempt.name;data.open=true;$('status').textContent='Deine letzte Übermittlung wurde unterbrochen. Rufe die Bestätigung mit derselben Referenz ab.';}",
-    "   showCatalog(data);",
-    "  }catch(err){$('notice').textContent=String(err.message||err).replace(/^(ScriptError: |Exception: |Error: )+/,'');}",
+    "async function loadPreview(){",
+    " const response=await fetch('./katalog.json',{cache:'no-cache'});",
+    " if(!response.ok)throw new Error('Der Katalog konnte nicht geladen werden.');",
+    " return (await response.json()).map(p=>({...p,cents:p.baseCents+p.stitchCents}));",
+    "}",
+    "async function loadMember(){",
+    " const data=await rpc('getCatalog',token),saved=cached();",
+    " if(saved?.receipt){receipt(saved.receipt);return;}",
+    " if(saved?.pending){attempt=saved.pending;cart=attempt.items;$('who').value=attempt.name;data.open=true;$('status').textContent='Deine letzte Übermittlung wurde unterbrochen. Rufe die Bestätigung erneut ab.';}",
+    " showCatalog(data);",
+    "}",
+    "async function connectMember(){",
+    " const response=await fetch('./konfiguration.json',{cache:'no-store'});",
+    " if(!response.ok)throw new Error('Die Bestellverwaltung ist gerade nicht erreichbar.');",
+    " const cfg=await response.json(), url=new URL(cfg.webApp);",
+    " if(url.origin!=='https://script.google.com'||!/^\\/macros\\/s\\/[A-Za-z0-9_-]+\\/exec$/.test(url.pathname))throw new Error('Die Verbindung zur Bestellverwaltung fehlt.');",
+    " const frame=$('frame'),channel=crypto.randomUUID();",
+    " url.searchParams.set('bridge',channel);",
+    " const connected=new Promise((resolve,reject)=>{",
+    "  const timer=setTimeout(()=>{window.removeEventListener('message',handshake);reject(new Error('Du kannst deine Auswahl zusammenstellen. Zum Abschicken muss die Bestellverwaltung verbunden sein. Lade die Seite nach der Freigabe neu.'));},13000);",
+    "  function handshake(event){",
+    "   if(event.data?.channel!==channel || event.data.type!=='moncheri-ready' || !/^https:\\/\\/[a-z0-9-]+-script\\.googleusercontent\\.com$/.test(event.origin))return;",
+    "   let ancestor=event.source;",
+    "   while(ancestor && ancestor!==frame.contentWindow && ancestor!==ancestor.parent)ancestor=ancestor.parent;",
+    "   if(ancestor!==frame.contentWindow)return;",
+    "   clearTimeout(timer);window.removeEventListener('message',handshake);",
+    "   const target=event.source,origin=event.origin;",
+    "   memberRpc=(method,...args)=>new Promise((done,fail)=>{",
+    "    const port=new MessageChannel();",
+    "    const timeout=setTimeout(()=>{port.port1.close();fail(new Error('Die Bestellverwaltung antwortet gerade nicht.'));},45000);",
+    "    port.port1.onmessage=e=>{",
+    "     clearTimeout(timeout);port.port1.close();",
+    "     if(e.data.error)fail(new Error(e.data.error));else done(e.data.value);",
+    "    };",
+    "    target.postMessage({type:'moncheri-request',channel,method,args},origin,[port.port2]);",
+    "   });",
+    "   resolve();",
+    "  }",
+    "  window.addEventListener('message',handshake);",
     " });",
+    " frame.src=url.href;",
+    " try{await connected;}catch(err){",
+    "  $('direct').href=cfg.webApp+'#k='+token;$('fallback').hidden=false;throw err;",
+    " }",
+    " await loadMember();",
+    "}",
+    "async function start(){",
+    " try{",
+    "  if(hosted){",
+    "   google.script.url.getLocation(async loc=>{",
+    "    token=new URLSearchParams(loc.hash||'').get('k')||'';storageKey='mc-v1-'+token;",
+    "    try{await loadMember();}catch(err){$('notice').textContent=String(err.message||err);}",
+    "   });",
+    "   return;",
+    "  }",
+    "  const hash=new URLSearchParams(location.hash.slice(1));",
+    "  demo=!hash.has('k');",
+    "  if(!demo){",
+    "   token=hash.get('k')||'';",
+    "   if(!/^[0-9a-f]{64}$/.test(token))throw new Error('Der Einladungslink ist unvollständig. Bitte öffne den vollständigen Mitgliederlink.');",
+    "   storageKey='mc-v1-'+token;",
+    "  }",
+    "  if(demo){showCatalog({open:true,products:await loadPreview()});return;}",
+    "  showCatalog({open:false,products:await loadPreview()});",
+    "  $('notice').textContent='Du kannst schon auswählen. Die Bestellverwaltung wird verbunden …';",
+    "  await connectMember();",
+    " }catch(err){$('notice').textContent=String(err.message||err);}",
     "}",
     "const crest=$('logo');",
     "crest.onerror=function(){",
