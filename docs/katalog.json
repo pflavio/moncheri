@@ -92,13 +92,13 @@
     "photo": "https://cdn.strauss.com/de/assets/pdp/images/Two_MainImage_Crop_Desktop/product/1.Release.3100690/e_s_Polo-Shirt_cotton-182838-1-637596043992478742.jpg",
     "model": "Strauß Polo-Shirt",
     "fit": "Herren",
-    "name": "Strauß Polo-Shirt · Herren · Druck",
+    "name": "Strauß Polo-Shirt · Herren · Stick",
     "colors": [
       "Schwarz"
     ],
     "custom": false,
     "baseCents": 2500,
-    "stitchCents": 950
+    "stitchCents": 1500
   },
   {
     "id": "polo-d",
@@ -116,13 +116,13 @@
     "photo": "https://cdn.strauss.com/de/assets/pdp/images/Two_MainImage_Desktop/product/1.Release.3100371/e_s_Polo-Shirt_cotton_Damen-8201-3-638453165280928087.png",
     "model": "Strauß Polo-Shirt",
     "fit": "Damen",
-    "name": "Strauß Polo-Shirt · Damen · Druck",
+    "name": "Strauß Polo-Shirt · Damen · Stick",
     "colors": [
       "Schwarz"
     ],
     "custom": false,
     "baseCents": 2500,
-    "stitchCents": 950
+    "stitchCents": 1500
   },
   {
     "id": "jacke-h",
