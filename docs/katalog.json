@@ -23,7 +23,7 @@
     ],
     "custom": false,
     "baseCents": 2000,
-    "stitchCents": 1000
+    "stitchCents": 1500
   },
   {
     "id": "stretch-h-slim",
@@ -46,7 +46,7 @@
     ],
     "custom": false,
     "baseCents": 2000,
-    "stitchCents": 1000
+    "stitchCents": 1500
   },
   {
     "id": "stretch-d-normal",
@@ -70,7 +70,7 @@
     ],
     "custom": false,
     "baseCents": 2000,
-    "stitchCents": 1000
+    "stitchCents": 1500
   },
   {
     "id": "polo-h",
@@ -98,7 +98,7 @@
     ],
     "custom": false,
     "baseCents": 2500,
-    "stitchCents": 1000
+    "stitchCents": 1500
   },
   {
     "id": "polo-d",
@@ -122,7 +122,7 @@
     ],
     "custom": false,
     "baseCents": 2500,
-    "stitchCents": 1000
+    "stitchCents": 1500
   },
   {
     "id": "jacke-h",
@@ -149,7 +149,7 @@
     ],
     "custom": false,
     "baseCents": 4500,
-    "stitchCents": 1000
+    "stitchCents": 1500
   },
   {
     "id": "jacke-d",
@@ -172,7 +172,7 @@
     ],
     "custom": false,
     "baseCents": 4000,
-    "stitchCents": 1000
+    "stitchCents": 1500
   },
   {
     "id": "motion-ten-h",
@@ -195,7 +195,7 @@
     ],
     "custom": false,
     "baseCents": 7000,
-    "stitchCents": 1000,
+    "stitchCents": 1500,
     "productUrl": "https://www.strauss.com/de/de/westen/weste-e-s-motion-ten-3140480-66104-1200.html?itemorigin=SEARCH",
     "photo": "https://cdn.strauss.com/de/assets/pdp/images/Three_MainImage_Crop_Desktop/product/1.Release.3140480/Weste_e_s_motion_ten-219326-0-637758505410903796.jpg"
   },
@@ -217,7 +217,7 @@
     ],
     "custom": false,
     "baseCents": 7000,
-    "stitchCents": 1000,
+    "stitchCents": 1500,
     "productUrl": "https://www.strauss.com/de/de/arbeitswesten-damen/weste-e-s-motion-ten-damen-3140490-66204-1200.html",
     "photo": "https://cdn.strauss.com/de/assets/pdp/images/Three_MainImage_Crop_Desktop/product/1.Release.3140490/Weste_e_s_motion_ten_Damen-219350-0-637758527255132808.jpg"
   },
@@ -239,7 +239,7 @@
     ],
     "custom": false,
     "baseCents": 6500,
-    "stitchCents": 1000,
+    "stitchCents": 1500,
     "productUrl": "https://www.decathlon.de/p/softshelljacke-herren-winddicht-trekking-mt500-schwarz/324230/c382c382m8580221",
     "photo": "https://contents.mediadecathlon.com/p2718275/k$4c24ea1cc573df4940efd60a9ca49510/picture.jpg?format=jpeg&f=800x800",
     "fallbackPhoto": "https://contents.mediadecathlon.com/p2718275/k$4c24ea1cc573df4940efd60a9ca49510/picture.jpg"
@@ -262,7 +262,7 @@
     ],
     "custom": false,
     "baseCents": 5500,
-    "stitchCents": 1000,
+    "stitchCents": 1500,
     "productUrl": "https://www.decathlon.de/p/softshelljacke-damen-winddicht-wandern-mt500-schwarz/324212/c1c382m8580199",
     "photo": "https://contents.mediadecathlon.com/p3187582/k$ce1bd61940087315e462f48f8cd175ae/picture.jpg?format=jpeg&f=800x800",
     "fallbackPhoto": "https://contents.mediadecathlon.com/p3187582/k$ce1bd61940087315e462f48f8cd175ae/picture.jpg"
@@ -286,7 +286,7 @@
     ],
     "custom": false,
     "baseCents": 6500,
-    "stitchCents": 2000,
+    "stitchCents": 3000,
     "productUrl": "https://www.intersport.de/p/jako-herren-fussball-oberteile-trainingsanzug-polyester-power-p2007045?variantId=v20018411",
     "photo": "https://intersport-de.imgdn.net/fsi/server?effects=Pad%28cc%2Cffffff%29%2CMatte%28FFFFFF%29&height=800&source=extcontentsource%2Fsmartpdm%2F096%2F37b0c90d3d4736c175560f9f851b7baf.jpg&type=image&width=800",
     "fallbackPhoto": "https://cdn.jako.com/userdata/dcshop/images/normal/M9123_800.jpg"
@@ -309,7 +309,7 @@
     ],
     "custom": false,
     "baseCents": 6500,
-    "stitchCents": 2000,
+    "stitchCents": 3000,
     "productUrl": "https://www.intersport.de/p/jako-damen-sportanzug-trainingsanzug-polyester-power-p2007008?articleId=a200116073",
     "photo": "https://intersport-de.imgdn.net/fsi/server?effects=Pad%28cc%2Cffffff%29%2CMatte%28FFFFFF%29&height=800&source=marktplatz%2Fproduktiv%2FTBMEDIA%2F24%2FJA5475%2F276373-f69d826662478.jpg&type=image&width=800",
     "fallbackPhoto": "https://cdn.jako.com/userdata/dcshop/images/normal/M9123_800.jpg"
