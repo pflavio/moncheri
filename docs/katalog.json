@@ -173,5 +173,145 @@
     "custom": false,
     "baseCents": 4000,
     "stitchCents": 1000
+  },
+  {
+    "id": "motion-ten-h",
+    "model": "Strauß Steppweste e.s.motion ten",
+    "fit": "Herren",
+    "name": "Strauß Steppweste e.s.motion ten · Herren",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL",
+      "4XL",
+      "5XL"
+    ],
+    "colors": [
+      "Oxidschwarz"
+    ],
+    "custom": false,
+    "baseCents": 7000,
+    "stitchCents": 1000,
+    "productUrl": "https://www.strauss.com/de/de/westen/weste-e-s-motion-ten-3140480-66104-1200.html?itemorigin=SEARCH",
+    "photo": "https://cdn.strauss.com/de/assets/pdp/images/Three_MainImage_Crop_Desktop/product/1.Release.3140480/Weste_e_s_motion_ten-219326-0-637758505410903796.jpg"
+  },
+  {
+    "id": "motion-ten-d",
+    "model": "Strauß Steppweste e.s.motion ten",
+    "fit": "Damen",
+    "name": "Strauß Steppweste e.s.motion ten · Damen",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL"
+    ],
+    "colors": [
+      "Oxidschwarz"
+    ],
+    "custom": false,
+    "baseCents": 7000,
+    "stitchCents": 1000,
+    "productUrl": "https://www.strauss.com/de/de/arbeitswesten-damen/weste-e-s-motion-ten-damen-3140490-66204-1200.html",
+    "photo": "https://cdn.strauss.com/de/assets/pdp/images/Three_MainImage_Crop_Desktop/product/1.Release.3140490/Weste_e_s_motion_ten_Damen-219350-0-637758527255132808.jpg"
+  },
+  {
+    "id": "mt500-h",
+    "model": "Decathlon Softshelljacke MT500",
+    "fit": "Herren",
+    "name": "Decathlon Softshelljacke MT500 · Herren",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL",
+      "3XL"
+    ],
+    "colors": [
+      "Schwarz"
+    ],
+    "custom": false,
+    "baseCents": 6500,
+    "stitchCents": 1000,
+    "productUrl": "https://www.decathlon.de/p/softshelljacke-herren-winddicht-trekking-mt500-schwarz/324230/c382c382m8580221",
+    "photo": "https://contents.mediadecathlon.com/p2718275/k$4c24ea1cc573df4940efd60a9ca49510/picture.jpg?format=jpeg&f=800x800",
+    "fallbackPhoto": "https://contents.mediadecathlon.com/p2718275/k$4c24ea1cc573df4940efd60a9ca49510/picture.jpg"
+  },
+  {
+    "id": "mt500-d",
+    "model": "Decathlon Softshelljacke MT500",
+    "fit": "Damen",
+    "name": "Decathlon Softshelljacke MT500 · Damen",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL"
+    ],
+    "colors": [
+      "Schwarz"
+    ],
+    "custom": false,
+    "baseCents": 5500,
+    "stitchCents": 1000,
+    "productUrl": "https://www.decathlon.de/p/softshelljacke-damen-winddicht-wandern-mt500-schwarz/324212/c1c382m8580199",
+    "photo": "https://contents.mediadecathlon.com/p3187582/k$ce1bd61940087315e462f48f8cd175ae/picture.jpg?format=jpeg&f=800x800",
+    "fallbackPhoto": "https://contents.mediadecathlon.com/p3187582/k$ce1bd61940087315e462f48f8cd175ae/picture.jpg"
+  },
+  {
+    "id": "jako-power-h",
+    "model": "JAKO Trainingsanzug Power",
+    "fit": "Herren",
+    "name": "JAKO Trainingsanzug Power · Herren · Stick auf Jacke und Hose",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL",
+      "3XL",
+      "4XL"
+    ],
+    "colors": [
+      "Schwarz"
+    ],
+    "custom": false,
+    "baseCents": 6500,
+    "stitchCents": 2000,
+    "productUrl": "https://www.intersport.de/p/jako-herren-fussball-oberteile-trainingsanzug-polyester-power-p2007045?variantId=v20018411",
+    "photo": "https://intersport-de.imgdn.net/fsi/server?effects=Pad%28cc%2Cffffff%29%2CMatte%28FFFFFF%29&height=800&source=extcontentsource%2Fsmartpdm%2F096%2F37b0c90d3d4736c175560f9f851b7baf.jpg&type=image&width=800",
+    "fallbackPhoto": "https://cdn.jako.com/userdata/dcshop/images/normal/M9123_800.jpg"
+  },
+  {
+    "id": "jako-power-d",
+    "model": "JAKO Trainingsanzug Power",
+    "fit": "Damen",
+    "name": "JAKO Trainingsanzug Power · Damen · Stick auf Jacke und Hose",
+    "sizes": [
+      "34",
+      "36",
+      "38",
+      "40",
+      "42",
+      "44"
+    ],
+    "colors": [
+      "Schwarz"
+    ],
+    "custom": false,
+    "baseCents": 6500,
+    "stitchCents": 2000,
+    "productUrl": "https://www.intersport.de/p/jako-damen-sportanzug-trainingsanzug-polyester-power-p2007008?articleId=a200116073",
+    "photo": "https://intersport-de.imgdn.net/fsi/server?effects=Pad%28cc%2Cffffff%29%2CMatte%28FFFFFF%29&height=800&source=marktplatz%2Fproduktiv%2FTBMEDIA%2F24%2FJA5475%2F276373-f69d826662478.jpg&type=image&width=800",
+    "fallbackPhoto": "https://cdn.jako.com/userdata/dcshop/images/normal/M9123_800.jpg"
   }
 ]
