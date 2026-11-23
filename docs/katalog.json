@@ -17,13 +17,13 @@
     "fallbackPhoto": "https://cdn.strauss.com/de/assets/pdp/images/Original/product/1.Release.3102230/e_s_T-Shirt_cotton_stretch-126730-1-637635041005921651.png",
     "model": "Strauß T-Shirt",
     "fit": "Herren · Normal",
-    "name": "Strauß T-Shirt Cotton Stretch · Herren · Normal",
+    "name": "Strauß T-Shirt Cotton Stretch · Herren · Normal · Druck",
     "colors": [
       "Schwarz"
     ],
     "custom": false,
     "baseCents": 2000,
-    "stitchCents": 1500
+    "stitchCents": 950
   },
   {
     "id": "stretch-h-slim",
@@ -40,13 +40,13 @@
     "fallbackPhoto": "https://cdn.strauss.com/de/assets/pdp/images/Original/product/1.Release.3102220/e_s_T-Shirt_cotton_stretch_slim_fit-126808-1-637635038310178146.png",
     "model": "Strauß T-Shirt",
     "fit": "Herren · Slim Fit",
-    "name": "Strauß T-Shirt Cotton Stretch · Herren · Slim Fit",
+    "name": "Strauß T-Shirt Cotton Stretch · Herren · Slim Fit · Druck",
     "colors": [
       "Schwarz"
     ],
     "custom": false,
     "baseCents": 2000,
-    "stitchCents": 1500
+    "stitchCents": 950
   },
   {
     "id": "stretch-d-normal",
@@ -64,13 +64,13 @@
     "fallbackPhoto": "https://cdn.strauss.com/de/assets/pdp/images/Original/product/1.Release.3101590/e_s_T-Shirt_cotton_stretch_Damen-8394-2-638169051209894524.png",
     "model": "Strauß T-Shirt",
     "fit": "Damen · Normal",
-    "name": "Strauß T-Shirt Cotton Stretch · Damen · Normal",
+    "name": "Strauß T-Shirt Cotton Stretch · Damen · Normal · Druck",
     "colors": [
       "Schwarz"
     ],
     "custom": false,
     "baseCents": 2000,
-    "stitchCents": 1500
+    "stitchCents": 950
   },
   {
     "id": "polo-h",
@@ -92,13 +92,13 @@
     "photo": "https://cdn.strauss.com/de/assets/pdp/images/Two_MainImage_Crop_Desktop/product/1.Release.3100690/e_s_Polo-Shirt_cotton-182838-1-637596043992478742.jpg",
     "model": "Strauß Polo-Shirt",
     "fit": "Herren",
-    "name": "Strauß Polo-Shirt · Herren",
+    "name": "Strauß Polo-Shirt · Herren · Druck",
     "colors": [
       "Schwarz"
     ],
     "custom": false,
     "baseCents": 2500,
-    "stitchCents": 1500
+    "stitchCents": 950
   },
   {
     "id": "polo-d",
@@ -116,13 +116,13 @@
     "photo": "https://cdn.strauss.com/de/assets/pdp/images/Two_MainImage_Desktop/product/1.Release.3100371/e_s_Polo-Shirt_cotton_Damen-8201-3-638453165280928087.png",
     "model": "Strauß Polo-Shirt",
     "fit": "Damen",
-    "name": "Strauß Polo-Shirt · Damen",
+    "name": "Strauß Polo-Shirt · Damen · Druck",
     "colors": [
       "Schwarz"
     ],
     "custom": false,
     "baseCents": 2500,
-    "stitchCents": 1500
+    "stitchCents": 950
   },
   {
     "id": "jacke-h",
@@ -143,7 +143,7 @@
     "photo": "https://cdn.strauss.com/de/assets/pdp/images/Three_MainImage_Crop_Desktop/product/1.Release.3100240/e_s_Hoody-Sweatjacke_poly_cotton-286733-0-638525848376307013.jpg",
     "model": "Strauß Kapuzen-Sweatjacke",
     "fit": "Herren",
-    "name": "Strauß Kapuzen-Sweatjacke · Herren",
+    "name": "Strauß Kapuzen-Sweatjacke · Herren · Stick",
     "colors": [
       "Schwarz"
     ],
@@ -166,7 +166,7 @@
     "photo": "https://cdn.strauss.com/de/assets/pdp/images/Three_MainImage_Crop_Desktop/product/1.Release.3101380/e_s_Hoody-Sweatjacke_poly_cotton_Damen-293118-0-638645085292063142.jpg",
     "model": "Strauß Kapuzen-Sweatjacke",
     "fit": "Damen",
-    "name": "Strauß Kapuzen-Sweatjacke · Damen",
+    "name": "Strauß Kapuzen-Sweatjacke · Damen · Stick",
     "colors": [
       "Schwarz"
     ],
@@ -178,7 +178,7 @@
     "id": "motion-ten-h",
     "model": "Strauß Steppweste",
     "fit": "Herren",
-    "name": "Strauß Steppweste · Herren",
+    "name": "Strauß Steppweste · Herren · Stick",
     "sizes": [
       "XS",
       "S",
@@ -203,7 +203,7 @@
     "id": "motion-ten-d",
     "model": "Strauß Steppweste",
     "fit": "Damen",
-    "name": "Strauß Steppweste · Damen",
+    "name": "Strauß Steppweste · Damen · Stick",
     "sizes": [
       "XS",
       "S",
@@ -225,7 +225,7 @@
     "id": "mt500-h",
     "model": "Decathlon Softshelljacke",
     "fit": "Herren",
-    "name": "Decathlon Softshelljacke · Herren",
+    "name": "Decathlon Softshelljacke · Herren · Stick",
     "sizes": [
       "S",
       "M",
@@ -248,7 +248,7 @@
     "id": "mt500-d",
     "model": "Decathlon Softshelljacke",
     "fit": "Damen",
-    "name": "Decathlon Softshelljacke · Damen",
+    "name": "Decathlon Softshelljacke · Damen · Stick",
     "sizes": [
       "XS",
       "S",

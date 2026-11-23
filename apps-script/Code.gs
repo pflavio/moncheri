@@ -58,7 +58,11 @@ function options_(v) {
   return xs.length ? xs : ['Standard'];
 }
 function catalog_(book) {
-  const fields = book.getSheetByName('Einrichtung').getRange('B5:B7').getValues().flat();
+  const fields = book.getSheetByName('Einrichtung').getRange('B5:B12').getValues().flat();
+  const lastDay=fields[7];
+  const berlinDay=date=>Utilities.formatDate(date,'Europe/Berlin','yyyy-MM-dd');
+  const deadline=lastDay instanceof Date ? berlinDay(lastDay) : '';
+  const open=fields[0]===true && (!deadline || berlinDay(new Date())<=deadline);
   const products = rows_(book.getSheetByName('Artikel'),14).filter(r=>r[6] === true).map(r=>{
     const cents = Math.round(r[2] * 100);
     if (!/^[A-Za-z0-9_-]{1,40}$/.test(String(r[0])) || !String(r[1]).trim() || typeof r[2] !== 'number' || !Number.isSafeInteger(cents) || cents < 0 || cents > 1000000)
@@ -66,14 +70,14 @@ function catalog_(book) {
     const product = {id:String(r[0]),name:String(r[1]).trim(),cents,sizes:options_(r[3]),colors:options_(r[4]),custom:r[5]===true};
     if ([r[7], r[8]].every(v => v == null || v === '')) return product;
     if (![r[7], r[8]].every(v => typeof v === 'number' && Number.isFinite(v) && v >= 0))
-      throw new Error('Bitte Stück- und Stickkosten im Katalog prüfen.');
+      throw new Error('Bitte Artikel- und Veredelungskosten im Katalog prüfen.');
     const baseCents = Math.round(r[7] * 100), stitchCents = Math.round(r[8] * 100);
     if (baseCents + stitchCents !== cents) throw new Error('Bitte die Preissumme im Katalog prüfen.');
     return {...product, baseCents, stitchCents, model:String(r[9]||product.name), fit:String(r[10]||''),
       photo:String(r[11]||''), productUrl:String(r[12]||''), fallbackPhoto:String(r[13]||'')};
   });
   if (new Set(products.map(p=>p.id)).size !== products.length) throw new Error('Im Katalog sind Artikel-IDs doppelt vergeben.');
-  return {open:fields[0]===true, payment:String(fields[1]||''),privacy:String(fields[2]||''),products};
+  return {open,deadline,payment:String(fields[1]||''),privacy:String(fields[2]||''),products};
 }
 function getCatalog(token) { return catalog_(bookFor_(token)); }
 function plain_(s,max) {
@@ -93,7 +97,7 @@ function quote_(catalog, request) {
       throw new Error('Das Sortiment oder ein Preis hat sich geändert. Bitte lade die Seite neu und prüfe deine Auswahl.');
     if(!Number.isInteger(line.qty) || line.qty<1 || line.qty>99) throw new Error('Die Menge muss zwischen 1 und 99 liegen.');
     const custom=plain_(line.text,30);
-    if(custom && !p.custom) throw new Error('Für diesen Artikel ist kein Sticktext vorgesehen.');
+    if(custom && !p.custom) throw new Error('Für diesen Artikel ist kein Wunschtext vorgesehen.');
     const saved = {id:p.id,name:p.name,color:line.color,size:line.size,text:custom,qty:line.qty,cents:unitCents,mode};
     if (Number.isInteger(p.stitchCents)) {
       saved.baseCents = own ? 0 : p.baseCents;
@@ -122,7 +126,7 @@ function submitOrder(token,request) {
     if(!catalog.open) throw new Error('Die Bestellrunde ist geschlossen.');
     const {lines,total}=quote_(catalog,request);
     const ref='MC-'+Utilities.getUuid().replace(/-/g,'').slice(0,12).toUpperCase();
-    const summary=lines.map(l=>l.qty+' × '+l.name+' · '+l.color+' · '+l.size+' · '+(l.mode==='own'?'Nur Stick (Selbstabgabe)':'Sammelbestellung')+(l.text?' · '+l.text:'')).join('\n');
+    const summary=lines.map(l=>l.qty+' × '+l.name+' · '+l.color+' · '+l.size+' · '+(l.mode==='own'?'Nur Veredelung (Selbstabgabe)':'Sammelbestellung')+(l.text?' · '+l.text:'')).join('\n');
     const target=sheet.getLastRow()+1;
     if(target>sheet.getMaxRows()) sheet.insertRowsAfter(sheet.getMaxRows(),100);
     const row=[ref,new Date(),literal_(name),total/100,false,summary,JSON.stringify(lines),request.key];
@@ -210,15 +214,17 @@ function formular_() {
     " .product summary .price{grid-area:2/2;align-self:start}",
     " .product summary .plus{grid-area:1/3/3/4}",
     "}",
+    ".hero .deadline{margin:0 0 14px;color:var(--red);font-size:clamp(1.25rem,3vw,1.85rem);font-weight:700;line-height:1.25}",
+    ".product .finish{display:block;font-weight:400;font-size:.88rem;color:var(--muted)}",
     ".price-note{margin:0 0 16px;color:var(--muted)}",
     ".notice.own-order{margin:14px 0 0}",
     ".own-order strong{color:var(--red)}",
     "</style></head><body>",
     "<iframe id=\"frame\" title=\"Verbindung zur Bestellverwaltung\" referrerpolicy=\"no-referrer\" hidden></iframe>",
     "<div id=\"page\"><header><div class=\"brand\"><img id=\"logo\" alt=\"MonChéri Pétanque\" src=\"https://assets.zyrosite.com/A3QEqxZZ8VSnn6x7/mon_chi_trans-YbNDp1VqNViX14VW.png\"><div><strong>MonChéri Pétanque</strong><small>TV Groß-Zimmern 1863 e.V.</small></div></div><a href=\"https://www.moncheri-petanque.de/\" target=\"_blank\" rel=\"noreferrer\">Vereinsseite</a></header>",
-    "<main><div class=\"hero\"><h1>Merchandise</h1><p>Such dir deine gewünschten Artikel aus. Öffne ein Modell, um zwischen Damen und Herren zu wählen und deine Größe anzugeben.</p><aside class=\"notice own-order\"><strong>Du besorgst deine Kleidung selbst?</strong> Wenn du privat oder über deine Firma bestellst, wähle beim Artikel <strong>„Nur Stick“</strong>. Der Stick kostet 15 € pro Kleidungsstück. Beim Trainingsanzug sind es 30 € für Jacke und Hose zusammen. Leg deine Artikel bitte rechtzeitig in die Kiste, die ich im Container aufstelle.</aside></div><div id=\"notice\" class=\"notice\" role=\"status\">Bestellrunde wird geladen …</div>",
-    "<p id=\"fallback\" hidden><a id=\"direct\" target=\"_blank\" rel=\"noreferrer\">Bestellformular direkt öffnen</a> – dort wählst du deine Artikel noch einmal aus.</p><div class=\"layout\" id=\"shop\" hidden><figure id=\"preview\" hidden><img id=\"preview-photo\" referrerpolicy=\"no-referrer\" alt=\"\"><figcaption id=\"preview-caption\"></figcaption></figure><section class=\"box catalog\"><h2>Verfügbare Modelle</h2><p class=\"price-note\">Die Preise in der Übersicht gelten pro Artikel inklusive Stick. Was nach Abzug der Kosten übrig bleibt, fließt in die Vereinskasse.</p><div id=\"catalog\"></div></section><section class=\"box cart\"><h2>Deine Bestellung</h2><p class=\"empty\">Hier siehst du deine Artikel und die Kosten für den Stick.</p><ul id=\"lines\"></ul><div id=\"subtotals\" class=\"subtotals\" hidden><div><span>Artikelkosten</span><span id=\"base-total\"></span></div><div><span>Stickkosten</span><span id=\"stitch-total\"></span></div></div><div class=\"total\"><span id=\"total-label\">Gesamt</span><strong id=\"total\">0,00 €</strong></div><form id=\"order\"><label>Vollständiger Name<input id=\"who\" required maxlength=\"60\" autocomplete=\"name\" placeholder=\"Trag hier deinen Namen ein.\"></label><button id=\"send\" type=\"submit\" disabled>Bestellung abgeben</button></form><div id=\"status\" class=\"status\" role=\"status\"></div><details class=\"details\"><summary>Wer sieht meine Angaben?</summary><p>Philip sieht deinen Namen und deine Bestellung, damit er deine Zahlung zuordnen kann. Flo bekommt eine Stückliste.</p></details></section></div>",
-    "<section id=\"receipt\" class=\"box receipt\" tabindex=\"-1\" hidden><h2 id=\"receipt-title\">Bestellung eingegangen</h2><p>Dein Überweisungsbetrag<br><b id=\"receipt-total\"></b></p><p>Verwendungszweck<br><strong id=\"ref\"></strong></p><p id=\"payment\" class=\"preserve\"></p><p id=\"receipt-note\"></p></section>",
+    "<main><div class=\"hero\"><h1>Merchandise</h1><p class=\"deadline\">Bestellschluss <time id=\"deadline\" datetime=\"2026-12-31\">31.12.2026</time></p><p>Such dir deine gewünschten Artikel aus. Öffne ein Modell, um zwischen Damen und Herren zu wählen und deine Größe anzugeben. Wir planen bis zu drei Sammelbestellungen im Jahr. Für diese Runde hast du auch nach dem Bestellschluss noch Zeit zum Bezahlen. Flo startet im neuen Jahr, sobald alles bereit ist.</p><aside class=\"notice own-order\"><strong>Du besorgst deine Kleidung selbst?</strong> Wenn du privat oder über deine Firma bestellst, wähle beim Artikel <strong>„Nur Veredelung“</strong>. Du zahlst dann nur für den Druck oder den Stick. Leg deine Artikel bitte rechtzeitig in die Kiste, die ich im Container aufstelle.</aside></div><div id=\"notice\" class=\"notice\" role=\"status\">Bestellrunde wird geladen …</div>",
+    "<p id=\"fallback\" hidden><a id=\"direct\" target=\"_blank\" rel=\"noreferrer\">Bestellformular direkt öffnen</a> – dort wählst du deine Artikel noch einmal aus.</p><div class=\"layout\" id=\"shop\" hidden><figure id=\"preview\" hidden><img id=\"preview-photo\" referrerpolicy=\"no-referrer\" alt=\"\"><figcaption id=\"preview-caption\"></figcaption></figure><section class=\"box catalog\"><h2>Verfügbare Modelle</h2><p class=\"price-note\">Die Preise enthalten Artikel und Veredelung. Wir rechnen vorläufig mit 9,50 € für einen Druck und 15 € für einen Stick. Beim Trainingsanzug werden Jacke und Hose für zusammen 30 € bestickt. Die endgültigen Preise stimmen wir mit Flo ab. Was nach Abzug aller Kosten übrig bleibt, fließt in die Vereinskasse.</p><div id=\"catalog\"></div></section><section class=\"box cart\"><h2>Deine Bestellung</h2><p class=\"empty\">Hier siehst du deine Artikel und die Kosten für Druck oder Stick.</p><ul id=\"lines\"></ul><div id=\"subtotals\" class=\"subtotals\" hidden><div><span>Artikelkosten</span><span id=\"base-total\"></span></div><div><span>Veredelungskosten</span><span id=\"stitch-total\"></span></div></div><div class=\"total\"><span id=\"total-label\">Gesamt</span><strong id=\"total\">0,00 €</strong></div><form id=\"order\"><label>Vollständiger Name<input id=\"who\" required maxlength=\"60\" autocomplete=\"name\" placeholder=\"Trag hier deinen Namen ein.\"></label><button id=\"send\" type=\"submit\" disabled>Bestellung abgeben</button></form><div id=\"status\" class=\"status\" role=\"status\"></div><details class=\"details\"><summary>Wer sieht meine Angaben?</summary><p>Philip sieht deinen Namen und deine Bestellung, damit er deine Zahlung zuordnen kann. Flo bekommt eine Stückliste.</p></details></section></div>",
+    "<section id=\"receipt\" class=\"box receipt\" tabindex=\"-1\" hidden><h2 id=\"receipt-title\">Bestellung eingegangen</h2><p>Voraussichtlicher Gesamtbetrag<br><b id=\"receipt-total\"></b></p><p>Verwendungszweck<br><strong id=\"ref\"></strong></p><p id=\"payment\" class=\"preserve\"></p><p id=\"receipt-note\"></p></section>",
     "<div class=\"sr\" aria-live=\"polite\" id=\"announcer\"></div></main>",
     "<footer><span>MonChéri · Abteilung Pétanque</span><a href=\"https://www.moncheri-petanque.de/impressum\" target=\"_blank\" rel=\"noreferrer\">Impressum des Vereins</a><a href=\"https://www.moncheri-petanque.de/datenschutz\" target=\"_blank\" rel=\"noreferrer\">Datenschutz des Vereins</a></footer></div>",
     "<script>",
@@ -259,12 +265,20 @@ function formular_() {
     " setPhoto($('preview-photo'),item);",
     " $('preview-caption').textContent=item.name;",
     "}",
+    "function finishLabel(name) {",
+    " const last=name.split(' · ').pop();",
+    " if(last==='Druck') return 'Druck';",
+    " if(last==='Stick' || last==='Stick auf Jacke und Hose') return 'Stick';",
+    " return 'Veredelung';",
+    "}",
     "function product(variants) {",
     " const d=el('details',undefined,'product'), head=el('summary');",
     " const image=el('img',undefined,'product-photo'), price=el('span',undefined,'price');",
     " image.loading='lazy'; image.referrerPolicy='no-referrer';",
     " const plus=el('span','+','plus'); plus.setAttribute('aria-hidden','true');",
-    " head.append(image,el('strong',variants[0].model||variants[0].name),price,plus);",
+    " const title=el('strong',variants[0].model||variants[0].name),finish=el('small',undefined,'finish');",
+    " title.append(finish);",
+    " head.append(image,title,price,plus);",
     " const f=el('form',undefined,'controls');",
     " const editions=new Map();",
     " for(const variant of variants){",
@@ -278,13 +292,13 @@ function formular_() {
     " const size=el('select'),color=el('select'),qty=el('input');",
     " qty.type='number'; qty.min=1; qty.max=99; qty.step=1; qty.value=1; qty.required=true;",
     " const mode=el('select');",
-    " for (const [value,title] of [['bundle','Artikel + Stick'],['own','Nur Stick']]) {",
+    " for (const [value,title] of [['bundle','Artikel + Veredelung'],['own','Nur Veredelung']]) {",
     "  const option=el('option',title);option.value=value;mode.append(option);",
     " }",
     " const method=label('Bestellart',mode);method.className='full';",
-    " const pickup=el('p','Besorg das Modell selbst und leg es rechtzeitig in die Kiste im Container. Du zahlst nur für den Stick.','self-supply full');",
+    " const pickup=el('p','Besorg das Modell selbst und leg es rechtzeitig in die Kiste im Container. Du zahlst nur für die Veredelung.','self-supply full');",
     " const note=el('input');note.maxLength=30;",
-    " const noteLabel=label('Sticktext (optional)',note);noteLabel.className='full';",
+    " const noteLabel=label('Wunschtext (optional)',note);noteLabel.className='full';",
     " const productLink=el('a','Produkt beim Anbieter ansehen');productLink.target='_blank';productLink.rel='noreferrer';",
     " const amounts=el('p',undefined,'breakdown full');",
     " const add=el('button','Zur Bestellung hinzufügen','secondary full');add.type='submit';",
@@ -303,10 +317,14 @@ function formular_() {
     " }",
     " function showPrice() {",
     "  const cost=quote();",
+    "  const technique=finishLabel(selected.name);",
+    "  finish.textContent=tracksuit?'Stick auf Jacke und Hose':technique;",
     "  price.textContent=money(selected.cents);",
-    "  amounts.textContent=Number.isInteger(cost.stitchCents)",
-    "   ? 'Artikel '+money(cost.baseCents)+' + Stick '+money(cost.stitchCents)+' = '+money(cost.cents)+' je Stück'",
-    "   : money(cost.cents)+' je Stück';",
+    "  amounts.textContent=money(cost.cents)+' je Stück';",
+    "  if(Number.isInteger(cost.stitchCents)){",
+    "   amounts.textContent=cost.mode==='own' ? 'Nur '+technique+' '+money(cost.cents)",
+    "    : 'Artikel '+money(cost.baseCents)+' + '+technique+' '+money(cost.stitchCents)+' = '+money(cost.cents);",
+    "  }",
     "  if(tracksuit) amounts.textContent+=' (Stick auf Jacke und Hose)';",
     "  pickup.hidden=cost.mode!=='own';",
     " }",
@@ -346,7 +364,7 @@ function formular_() {
     "}",
     "function drawCart(){",
     " const list=$('lines');list.replaceChildren();cart.forEach((x,i)=>{",
-    "  const li=el('li',undefined,'line'),info=el('div');info.append(el('strong',x.qty+' × '+x.name),el('small',[x.color,x.size,x.mode==='own'?'Nur Stick · Abgabe im Container':'Artikel + Stick',x.text].filter(Boolean).join(' · ')));",
+    "  const li=el('li',undefined,'line'),info=el('div');info.append(el('strong',x.qty+' × '+x.name),el('small',[x.color,x.size,x.mode==='own'?'Nur Veredelung · Abgabe im Container':'Artikel + Veredelung',x.text].filter(Boolean).join(' · ')));",
     "  const remove=el('button','Entfernen','remove');remove.type='button';remove.setAttribute('aria-label',x.name+' '+x.size+' entfernen');remove.disabled=busy||!!attempt;",
     "  remove.onclick=()=>{cart.splice(i,1);drawCart()};li.append(info,el('span',money(x.qty*x.cents)),remove);list.append(li);",
     " });",
@@ -360,8 +378,16 @@ function formular_() {
     " $('who').disabled=busy||!!attempt;$('send').disabled=!ready||!cart.length||busy;",
     " $('send').textContent=busy?'Wird übermittelt …':attempt?'Bestellbestätigung abrufen':demo?'Testbestellung abschließen':'Bestellung abgeben';",
     "}",
+    "function pastDeadline(){",
+    " const today=new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Berlin'}).format(new Date());",
+    " return today>$('deadline').dateTime;",
+    "}",
     "function showCatalog(data){",
-    " ready=data.open;",
+    " if(data.deadline){",
+    "  $('deadline').dateTime=data.deadline;",
+    "  $('deadline').textContent=data.deadline.split('-').reverse().join('.');",
+    " }",
+    " ready=data.open && (demo || !!attempt || !pastDeadline());",
     " $('notice').textContent=demo?'Das ist die Vorschau. Hier kannst du die Modelle ansehen und deine Auswahl ausprobieren. Bestellen kannst du über deinen Mitgliederlink.':!ready?'Die Bestellrunde ist geschlossen. Du kannst dir die Modelle weiterhin ansehen.':'';",
     " $('total-label').textContent=demo?'Voraussichtliche Summe':'Gesamtbetrag';",
     " $('catalog').replaceChildren(...groupedProducts(data.products).map(product));",
@@ -378,13 +404,16 @@ function formular_() {
     "}",
     "$('order').onsubmit=async e=>{",
     " e.preventDefault();if(busy||!cart.length||(!ready&&!attempt))return;",
+    " if(!demo && !attempt && pastDeadline()){",
+    "  ready=false;drawCart();$('notice').textContent='Der Bestellschluss ist vorbei. Die Bestellrunde ist geschlossen.';return;",
+    " }",
     " if(!$('who').value.trim()){$('status').textContent='Bitte trag deinen vollständigen Namen ein.';return;}",
     " if(demo){receipt({ref:'VORSCHAU',selfSupply:cart.some(x=>x.mode==='own'),total:cart.reduce((n,x)=>n+x.qty*x.cents,0)});return;}",
     " if(!attempt)attempt={key:crypto.randomUUID(),name:$('who').value.trim(),items:cart.map(x=>({...x}))};",
     " stash({pending:attempt});busy=true;$('status').textContent='';drawCart();",
     " try{const r=await rpc('submitOrder',token,attempt);r.selfSupply=attempt.items.some(x=>x.mode==='own');stash({receipt:r});receipt(r);}",
     " catch(err){const msg=String(err.message||err);",
-    " if(/Sortiment oder ein Preis|Runde ist geschlossen|Bestellrunde ist geschlossen|Texteingabe|kein Sticktext|Menge muss|Positionen|erneut|vollständigen Namen|Spitznamen/.test(msg)){attempt=null;stash(null);}",
+    " if(/Sortiment oder ein Preis|Runde ist geschlossen|Bestellrunde ist geschlossen|Texteingabe|kein Sticktext|kein Wunschtext|Menge muss|Positionen|erneut|vollständigen Namen|Spitznamen/.test(msg)){attempt=null;stash(null);}",
     " $('status').textContent=msg.replace(/^(ScriptError: |Exception: |Error: )+/,'')+(attempt?' Du kannst dieselbe Anfrage erneut senden.':'');}",
     " finally{busy=false;drawCart();}",
     "};",
