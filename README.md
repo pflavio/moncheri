@@ -1,6 +1,6 @@
-# MonChéri · Vereinskleidung
+# MonChéri · Merchandise
 
-Vereinskleidung für MonChéri Pétanque Groß-Zimmern: Mitglieder stellen ihre Bestellung zusammen und sehen ihren Überweisungsbetrag. Die Orga behält Zahlungen und Sammelbestellung im Blick.
+Merchandise für MonChéri Pétanque Groß-Zimmern. Mitglieder wählen ihr Modell und sehen direkt, was Artikel und Stick kosten. Philip bündelt die Bestellungen für den Einkauf und die Stickerei.
 
 Die mobile Bestellseite läuft auf GitHub Pages. Das Mitgliederformular schreibt über eine Google Apps Script Web-App in eine private Google-Tabelle. Die Vereinsdomain ist `moncheri.pflavio.com`. Die öffentliche Vorschau zeigt die schwarzen Modelle aus [katalog.json](docs/katalog.json) mit vorläufigen Preisen. Nur der vollständige Einladungslink öffnet die echte Bestellrunde.
 
