@@ -23,8 +23,8 @@ Der Mitgliederlink auf der Vereinsdomain zeigt denselben Katalog wie die Vorscha
 
 ## Am Bestellabend
 
-- **Bestellungen** zeigt eine Zeile je Bestellung mit Referenz, Zeit, Name, Auswahl und Gesamtbetrag. In Spalte **E** den vollständigen Zahlungseingang abhaken. Für eine Bestellung aus zwei Überweisungen das Häkchen nach Eingang der ganzen Summe setzen.
-- **MonChéri → Auswertungen aktualisieren** erzeugt **Personensummen** und **Stickerei** aus allen gespeicherten Bestellungen. Änderungen am Zahlungshäkchen aktualisieren diese Ansichten ebenfalls. Personen mit demselben Namen lassen sich anhand der Referenz zuordnen. 
+- **Bestellungen** zeigt eine Zeile je Bestellung mit interner Bestellnummer, Zeit, Name, Auswahl und Gesamtbetrag. Als Verwendungszweck für Überweisung oder PayPal geben Mitglieder ihren vollständigen Namen aus der Bestellung an. In Spalte **E** den vollständigen Zahlungseingang abhaken. Für eine Bestellung aus zwei Überweisungen das Häkchen nach Eingang der ganzen Summe setzen.
+- **MonChéri → Auswertungen aktualisieren** erzeugt **Personensummen** und **Stickerei** aus allen gespeicherten Bestellungen. Änderungen am Zahlungshäkchen aktualisieren diese Ansichten ebenfalls. Einzelne Bestellungen lassen sich intern anhand ihrer Bestellnummer unterscheiden. 
 - Für den Besticker das Blatt **Stickerei** öffnen und **File → Download → Comma-separated values (.csv, current sheet)** wählen. Es enthält Artikel, Farbe, Größe, Stückzahl, einen optionalen Wunschtext und die Beschaffung. Für den Einkauf nur „Über den Verein bestellen“ auswählen. „Selbstabgabe bei Philip“ zählt zur Veredelung. Namen der Bestellenden und Zahlungsstatus stehen nur in der Verwaltung.
 - Zum vorzeitigen Schließen das Häkchen in **Einrichtung → B11** entfernen. Nach dem Bestellschluss die Auswertungen aktualisieren. Bereits abgegebene Bestellungen behalten den bei Abgabe bestätigten Preis. Änderungen an einer Bestellung laufen über die Orga. Die Spalten **G/H** im Bestellblatt enthalten die ursprünglichen Positionen und die Vorgangs-ID. Sie dienen der Auswertung und dem Schutz vor doppelter Übermittlung.
 
