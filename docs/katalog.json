@@ -152,44 +152,5 @@
     "custom": false,
     "baseCents": 3796,
     "stitchCents": 1000
-  },
-  {
-    "id": "cap",
-    "sizes": [
-      "Youth",
-      "XS/S",
-      "S/M",
-      "L/XL",
-      "2XL"
-    ],
-    "productUrl": "https://www.flex-cap.de/Baseball-Cap-Flexfit-Classic-Schwarz-Fullcap-4816/",
-    "photo": "https://cdn.branditem.com/flex-cap/baseball-cap-flexfit-classic-schwarz-fullcap-4816/baseball-cap-flexfit-classic-schwarz-fullcap-hauptbild-1.jpg",
-    "model": "Flexfit 6277 Classic",
-    "fit": "",
-    "name": "Flexfit 6277 Classic",
-    "colors": [
-      "Schwarz"
-    ],
-    "custom": false,
-    "baseCents": 1295,
-    "stitchCents": 1000
-  },
-  {
-    "id": "tasche",
-    "sizes": [
-      "Für 3 Kugeln"
-    ],
-    "productUrl": "https://koelnspielt.de/Obut-Canvas-Tasche::106648.html",
-    "photo": "https://www.obut.com/308-gallery_default/sacoche-toile-noire.jpg",
-    "model": "Obut Canvas · Kugeltasche",
-    "fit": "",
-    "name": "Obut Canvas · Kugeltasche",
-    "colors": [
-      "Schwarz"
-    ],
-    "custom": true,
-    "baseCents": 1995,
-    "stitchCents": 1000,
-    "fallbackPhoto": "https://www.canadabillard.com/cdn/shop/products/BOCCE_CASE_OBUT_3_BALLS_BLACK_2.png?v=1664286167&width=1080"
   }
 ]
