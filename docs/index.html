@@ -29,8 +29,8 @@
 </style></head><body>
 <iframe id="frame" title="Verbindung zur Bestellverwaltung" referrerpolicy="no-referrer" hidden></iframe>
 <div id="page"><header><div class="brand"><img id="logo" alt="MonChéri Pétanque" src="https://assets.zyrosite.com/A3QEqxZZ8VSnn6x7/mon_chi_trans-YbNDp1VqNViX14VW.png"><div><strong>MonChéri Pétanque</strong><small>TV Groß-Zimmern 1863 e.V.</small></div></div><a href="https://www.moncheri-petanque.de/" target="_blank" rel="noreferrer">Vereinsseite</a></header>
-<main><div class="hero"><h1>Merchandise</h1><p>Such dir deine gewünschten Artikel aus. Wenn du selbst bestellst, wähle „Nur Stick“ und gib deine Artikel pünktlich bei mir ab.</p></div><div id="notice" class="notice" role="status">Bestellrunde wird geladen …</div>
-<p id="fallback" hidden><a id="direct" target="_blank" rel="noreferrer">Bisheriges Bestellformular öffnen</a> · Dort musst du deine Auswahl erneut eintragen.</p><div class="layout" id="shop" hidden><figure id="preview" hidden><img id="preview-photo" referrerpolicy="no-referrer" alt=""><figcaption id="preview-caption"></figcaption></figure><section class="box catalog"><h2>Unsere Modelle</h2><p class="price-note">Die Preise in der Übersicht enthalten den Artikel und den Stick. Ein Überschuss aus der Sammelbestellung fließt in die Vereinskasse.</p><div id="catalog"></div></section><section class="box cart"><h2>Deine Bestellung</h2><p id="empty" class="empty">Hier siehst du gleich deine Artikel und die Kosten für den Stick.</p><ul id="lines"></ul><div id="subtotals" class="subtotals" hidden><div><span>Artikelkosten</span><span id="base-total"></span></div><div><span>Stickkosten</span><span id="stitch-total"></span></div></div><div class="total"><span id="total-label">Gesamt</span><strong id="total">0,00 €</strong></div><form id="order"><label>Vollständiger Name<input id="who" required maxlength="60" autocomplete="name" placeholder="Trag hier deinen Namen ein."></label><button id="send" type="submit" disabled>Bestellung abgeben</button></form><div id="status" class="status" role="status"></div><details class="details"><summary>Wer sieht meine Angaben?</summary><p>Philip nutzt deinen Namen, um deine Bestellung und deine Zahlung zuzuordnen. Die Stickerei bekommt eine Stückliste mit Modell, Farbe, Größe und gewünschtem Sticktext.</p><p id="privacy" class="preserve"></p></details></section></div>
+<main><div class="hero"><h1>Merchandise</h1><p>Such dir deine gewünschten Artikel aus. Wenn du die Kleidung selbst bestellst, wähle bei der Bestellart „Nur Stick“. Dann zahlst du nur für den Stick. Gib deine Artikel bitte pünktlich bei mir ab. Dafür stelle ich eine Kiste im Container auf.</p></div><div id="notice" class="notice" role="status">Bestellrunde wird geladen …</div>
+<p id="fallback" hidden><a id="direct" target="_blank" rel="noreferrer">Bisheriges Bestellformular öffnen</a> · Dort musst du deine Auswahl erneut eintragen.</p><div class="layout" id="shop" hidden><figure id="preview" hidden><img id="preview-photo" referrerpolicy="no-referrer" alt=""><figcaption id="preview-caption"></figcaption></figure><section class="box catalog"><h2>Unsere Modelle</h2><p class="price-note">Die Preise in der Übersicht enthalten den Artikel und den Stick. Ein Überschuss aus der Sammelbestellung fließt in die Vereinskasse.</p><div id="catalog"></div></section><section class="box cart"><h2>Deine Bestellung</h2><p id="empty" class="empty">Hier siehst du gleich deine Artikel und die Kosten für den Stick.</p><ul id="lines"></ul><div id="subtotals" class="subtotals" hidden><div><span>Artikelkosten</span><span id="base-total"></span></div><div><span>Stickkosten</span><span id="stitch-total"></span></div></div><div class="total"><span id="total-label">Gesamt</span><strong id="total">0,00 €</strong></div><form id="order"><label>Vollständiger Name<input id="who" required maxlength="60" autocomplete="name" placeholder="Trag hier deinen Namen ein."></label><button id="send" type="submit" disabled>Bestellung abgeben</button></form><div id="status" class="status" role="status"></div><details class="details"><summary>Wer sieht meine Angaben?</summary><p>Philipp sieht deinen Namen und deine Bestellung, damit er deine Zahlung zuordnen kann. Die Stickerei bekommt eine Stückliste.</p></details></section></div>
 <section id="receipt" class="box receipt" tabindex="-1" hidden><h2 id="receipt-title">Bestellung eingegangen</h2><p>Dein Überweisungsbetrag<br><b id="receipt-total"></b></p><p>Verwendungszweck<br><strong id="ref"></strong></p><p id="payment" class="preserve"></p><p id="receipt-note"></p></section>
 <div class="sr" aria-live="polite" id="announcer"></div></main>
 <footer><span>MonChéri · Abteilung Pétanque</span><a href="https://www.moncheri-petanque.de/impressum" target="_blank" rel="noreferrer">Impressum des Vereins</a><a href="https://www.moncheri-petanque.de/datenschutz" target="_blank" rel="noreferrer">Datenschutz des Vereins</a></footer></div>
@@ -87,7 +87,7 @@ function product(variants) {
   const option=el('option',title);option.value=value;mode.append(option);
  }
  const method=label('Bestellart',mode);method.className='full';
- const pickup=el('p','Du besorgst das Modell selbst und gibst es zum Besticken bei Philip ab. Hier zahlst du nur den Stick.','self-supply full');
+ const pickup=el('p','Du besorgst das Modell selbst und gibst es zum Besticken bei Philipp ab. Hier zahlst du nur den Stick.','self-supply full');
  const note=el('input');note.maxLength=30;
  const noteLabel=label('Sticktext (optional)',note);noteLabel.className='full';
  const productLink=el('a','Produkt beim Anbieter ansehen');productLink.target='_blank';productLink.rel='noreferrer';
@@ -143,7 +143,7 @@ function product(variants) {
 }
 function drawCart(){
  const list=$('lines');list.replaceChildren();cart.forEach((x,i)=>{
-  const li=el('li',undefined,'line'),info=el('div');info.append(el('strong',x.qty+' × '+x.name),el('small',[x.color,x.size,x.mode==='own'?'Nur Stick · Selbstabgabe bei Philip':'Artikel + Stick',x.text].filter(Boolean).join(' · ')));
+  const li=el('li',undefined,'line'),info=el('div');info.append(el('strong',x.qty+' × '+x.name),el('small',[x.color,x.size,x.mode==='own'?'Nur Stick · Selbstabgabe bei Philipp':'Artikel + Stick',x.text].filter(Boolean).join(' · ')));
   const remove=el('button','Entfernen','remove');remove.type='button';remove.setAttribute('aria-label',x.name+' '+x.size+' entfernen');remove.disabled=busy||!!attempt;
   remove.onclick=()=>{cart.splice(i,1);drawCart()};li.append(info,el('span',money(x.qty*x.cents)),remove);list.append(li);
  });
@@ -161,7 +161,7 @@ function showCatalog(data){
  ready=data.open;
  $('notice').textContent=demo?'Du bist in der Vorschau. Probier die Modelle und Preise in Ruhe aus. Für eine Bestellung beim Verein öffne deinen Mitgliederlink.':!ready?'Die Bestellrunde ist geschlossen. Du kannst dir die Modelle ansehen und deine Auswahl ausprobieren.':'';
  $('total-label').textContent=demo?'Voraussichtliche Summe':'Gesamtbetrag';
- $('privacy').textContent=data.privacy||'';$('catalog').replaceChildren(...groupedProducts(data.products).map(product));
+ $('catalog').replaceChildren(...groupedProducts(data.products).map(product));
  preview(data.products[0]);
  if(!data.products.length)$('catalog').append(el('p','Derzeit sind keine Artikel freigegeben.'));
  $('shop').hidden=false;drawCart();
@@ -170,7 +170,7 @@ function receipt(r){
  $('shop').hidden=true;$('notice').textContent='';$('receipt-title').textContent=demo?'Vorschau abgeschlossen':'Danke, deine Bestellung ist bei uns!';$('receipt-total').textContent=money(r.total);$('ref').textContent=r.ref;
  $('payment').textContent=demo?'Das war ein Probelauf in der Vorschau. Es ist keine Zahlung fällig.':r.payment||'Die Bankverbindung bekommst du von Philip.';
  $('receipt-note').textContent=demo?'Du kannst die Seite neu laden und eine weitere Auswahl testen.':'Heb die Bestätigung für deine Unterlagen auf, zum Beispiel als Screenshot.';
- if(r.selfSupply)$('receipt-note').textContent+=' Für „Nur Stick“ besorgst du die ausgewählten Artikel selbst und gibst sie bei Philip ab.';
+ if(r.selfSupply)$('receipt-note').textContent+=' Für „Nur Stick“ besorgst du die ausgewählten Artikel selbst und gibst sie bei Philipp ab.';
  $('receipt').hidden=false;$('receipt').focus();
 }
 $('order').onsubmit=async e=>{
