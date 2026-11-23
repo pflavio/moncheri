@@ -25,7 +25,9 @@
  .product summary .price{grid-area:2/2;align-self:start}
  .product summary .plus{grid-area:1/3/3/4}
 }
-.hero .deadline{margin:0 0 14px;color:var(--red);font-size:clamp(1.25rem,3vw,1.85rem);font-weight:700;line-height:1.25}
+.hero .deadline{margin:0 0 10px;color:var(--red);font-size:clamp(1rem,1.7vw,1.25rem);font-weight:600;line-height:1.4}
+.payment-options{padding:12px 0;border-top:1px solid var(--line)}
+.payment-options h3{font-size:1rem;margin:0 0 4px}.payment-options p{margin:0;color:var(--muted)}
 .product .finish{display:block;font-weight:400;font-size:.88rem;color:var(--muted)}
 .price-note{margin:0 0 16px;color:var(--muted)}
 .notice.own-order{margin:14px 0 0}
@@ -33,8 +35,8 @@
 </style></head><body>
 <iframe id="frame" title="Verbindung zur Bestellverwaltung" referrerpolicy="no-referrer" hidden></iframe>
 <div id="page"><header><div class="brand"><img id="logo" alt="MonChéri Pétanque" src="https://assets.zyrosite.com/A3QEqxZZ8VSnn6x7/mon_chi_trans-YbNDp1VqNViX14VW.png"><div><strong>MonChéri Pétanque</strong><small>TV Groß-Zimmern 1863 e.V.</small></div></div><a href="https://www.moncheri-petanque.de/" target="_blank" rel="noreferrer">Vereinsseite</a></header>
-<main><div class="hero"><h1>Merchandise</h1><p class="deadline">Bestellschluss <time id="deadline" datetime="2026-12-31">31.12.2026</time></p><p>Such dir deine gewünschten Artikel aus. Öffne ein Modell, um zwischen Damen und Herren zu wählen und deine Größe anzugeben. Wir planen bis zu drei Sammelbestellungen im Jahr. Für diese Runde hast du auch nach dem Bestellschluss noch Zeit zum Bezahlen. Flo startet im neuen Jahr, sobald alles bereit ist.</p><aside class="notice own-order"><strong>Du besorgst deine Kleidung selbst?</strong> Wenn du privat oder über deine Firma bestellst, wähle beim Artikel <strong>„Nur Veredelung“</strong>. Du zahlst dann nur für den Druck oder den Stick. Leg deine Artikel bitte rechtzeitig in die Kiste, die ich im Container aufstelle.</aside></div><div id="notice" class="notice" role="status">Bestellrunde wird geladen …</div>
-<p id="fallback" hidden><a id="direct" target="_blank" rel="noreferrer">Bestellformular direkt öffnen</a> – dort wählst du deine Artikel noch einmal aus.</p><div class="layout" id="shop" hidden><figure id="preview" hidden><img id="preview-photo" referrerpolicy="no-referrer" alt=""><figcaption id="preview-caption"></figcaption></figure><section class="box catalog"><h2>Verfügbare Modelle</h2><p class="price-note">Die Preise enthalten Artikel und Veredelung. T-Shirts werden für 9,50 € bedruckt. Bei Polos, Jacken und Westen kostet der Stick 15 € pro Stück. Beim Trainingsanzug werden Jacke und Hose für zusammen 30 € bestickt. Alle Preise für Druck und Stick sind vorläufig, bis Flo sie bestätigt. Was nach Abzug aller Kosten übrig bleibt, fließt in die Vereinskasse.</p><div id="catalog"></div></section><section class="box cart"><h2>Deine Bestellung</h2><p class="empty">Hier siehst du deine Artikel und die Kosten für Druck oder Stick.</p><ul id="lines"></ul><div id="subtotals" class="subtotals" hidden><div><span>Artikelkosten</span><span id="base-total"></span></div><div><span>Veredelungskosten</span><span id="stitch-total"></span></div></div><div class="total"><span id="total-label">Gesamt</span><strong id="total">0,00 €</strong></div><form id="order"><label>Vollständiger Name<input id="who" required maxlength="60" autocomplete="name" placeholder="Trag hier deinen Namen ein."></label><button id="send" type="submit" disabled>Bestellung abgeben</button></form><div id="status" class="status" role="status"></div><details class="details"><summary>Wer sieht meine Angaben?</summary><p>Philip sieht deinen Namen und deine Bestellung, damit er deine Zahlung zuordnen kann. Flo bekommt eine Stückliste.</p></details></section></div>
+<main><div class="hero"><h1>Merchandise</h1><p class="deadline">Bestellung und Zahlung müssen bis zum <time id="deadline" datetime="2026-12-31">31.12.2026</time> eingegangen sein.</p><p>Such dir deine gewünschten Artikel aus. Öffne ein Modell, um zwischen Damen und Herren zu wählen und deine Größe anzugeben.</p><aside class="notice own-order"><strong>Du besorgst deine Kleidung selbst?</strong> Wenn du privat oder über deine Firma bestellst, wähle beim Artikel <strong>„Nur Veredelung“</strong>. Du zahlst dann nur für den Druck oder den Stick. Leg deine Artikel bitte rechtzeitig in die Kiste, die ich im Container aufstelle.</aside></div><div id="notice" class="notice" role="status">Bestellrunde wird geladen …</div>
+<p id="fallback" hidden><a id="direct" target="_blank" rel="noreferrer">Bestellformular direkt öffnen</a> – dort wählst du deine Artikel noch einmal aus.</p><div class="layout" id="shop" hidden><figure id="preview" hidden><img id="preview-photo" referrerpolicy="no-referrer" alt=""><figcaption id="preview-caption"></figcaption></figure><section class="box catalog"><h2>Verfügbare Modelle</h2><p class="price-note">Die Preise enthalten Artikel und Veredelung. T-Shirts werden für 9,50 € bedruckt. Bei Polos, Jacken und Westen kostet der Stick 15 € pro Stück. Beim Trainingsanzug werden Jacke und Hose für zusammen 30 € bestickt. Alle Preise für Druck und Stick sind vorläufig, bis Flo sie bestätigt. Was nach Abzug aller Kosten übrig bleibt, fließt in die Vereinskasse.</p><div id="catalog"></div></section><section class="box cart"><h2>Deine Bestellung</h2><p class="empty">Hier siehst du deine Artikel und die Kosten für Druck oder Stick.</p><ul id="lines"></ul><div id="subtotals" class="subtotals" hidden><div><span>Artikelkosten</span><span id="base-total"></span></div><div><span>Veredelungskosten</span><span id="stitch-total"></span></div></div><div class="total"><span id="total-label">Gesamt</span><strong id="total">0,00 €</strong></div><section class="payment-options"><h3>Zahlungsarten</h3><p class="preserve" id="payment-methods"></p></section><form id="order"><label>Vollständiger Name<input id="who" required maxlength="60" autocomplete="name" placeholder="Trag hier deinen Namen ein."></label><button id="send" type="submit" disabled>Bestellung abgeben</button></form><div id="status" class="status" role="status"></div><details class="details"><summary>Wer sieht meine Angaben?</summary><p>Philip sieht deinen Namen und deine Bestellung, damit er deine Zahlung zuordnen kann. Flo bekommt eine Stückliste.</p></details></section></div>
 <section id="receipt" class="box receipt" tabindex="-1" hidden><h2 id="receipt-title">Bestellung eingegangen</h2><p>Voraussichtlicher Gesamtbetrag<br><b id="receipt-total"></b></p><p>Verwendungszweck<br><strong id="ref"></strong></p><p id="payment" class="preserve"></p><p id="receipt-note"></p></section>
 <div class="sr" aria-live="polite" id="announcer"></div></main>
 <footer><span>MonChéri · Abteilung Pétanque</span><a href="https://www.moncheri-petanque.de/impressum" target="_blank" rel="noreferrer">Impressum des Vereins</a><a href="https://www.moncheri-petanque.de/datenschutz" target="_blank" rel="noreferrer">Datenschutz des Vereins</a></footer></div>
@@ -193,6 +195,12 @@ function pastDeadline(){
  const today=new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Berlin'}).format(new Date());
  return today>$('deadline').dateTime;
 }
+function paymentDetails(value){
+ const lines=String(value||'').trim().split(/\r?\n/);
+ const testNotice=lines[0].startsWith('Das ist ein Probelauf.')?lines.shift():'';
+ const methods=lines.join('\n').trim()||'Überweisung – Kontoinhaber und IBAN folgen.\nPayPal – Die Empfängeradresse folgt.';
+ return {testNotice,methods};
+}
 function showCatalog(data){
  if(data.deadline){
   $('deadline').dateTime=data.deadline;
@@ -200,9 +208,9 @@ function showCatalog(data){
  }
  ready=data.open && (demo || !!attempt || !pastDeadline());
  $('notice').textContent=demo?'Das ist die Vorschau. Hier kannst du die Modelle ansehen und deine Auswahl ausprobieren. Bestellen kannst du über deinen Mitgliederlink.':!ready?'Die Bestellrunde ist geschlossen. Du kannst dir die Modelle weiterhin ansehen.':'';
- if(!demo && ready && String(data.payment||'').startsWith('Das ist ein Probelauf.')){
-  $('notice').textContent=data.payment;
- }
+ const payment=paymentDetails(data.payment);
+ $('payment-methods').textContent=payment.methods;
+ if(!demo && ready && payment.testNotice) $('notice').textContent=payment.testNotice;
  $('total-label').textContent=demo?'Voraussichtliche Summe':'Gesamtbetrag';
  $('catalog').replaceChildren(...groupedProducts(data.products).map(product));
  preview(data.products[0]);
@@ -211,7 +219,9 @@ function showCatalog(data){
 }
 function receipt(r){
  $('shop').hidden=true;$('notice').textContent='';$('receipt-title').textContent=demo?'Vorschau abgeschlossen':'Danke, deine Bestellung ist eingegangen!';$('receipt-total').textContent=money(r.total);$('ref').textContent=r.ref;
- $('payment').textContent=demo?'Das war eine Testbestellung in der Vorschau. Du musst nichts überweisen.':r.payment||'Die Bankverbindung bekommst du von Philip.';
+ const payment=paymentDetails(r.payment);
+ const note=demo?'Das war eine Testbestellung in der Vorschau. Bitte zahle dafür nichts.':payment.testNotice;
+ $('payment').textContent=[note,payment.methods].filter(Boolean).join('\n\n');
  $('receipt-note').textContent=demo?'Du kannst die Seite neu laden und eine weitere Auswahl testen.':'Speichere dir die Bestätigung, zum Beispiel als Screenshot.';
  if(r.selfSupply)$('receipt-note').textContent+=' Leg die Artikel, die du selbst bestellst, bitte rechtzeitig in die Kiste im Container.';
  $('receipt').hidden=false;$('receipt').focus();
