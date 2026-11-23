@@ -176,9 +176,9 @@
   },
   {
     "id": "motion-ten-h",
-    "model": "Strauß Steppweste e.s.motion ten",
+    "model": "Strauß Steppweste",
     "fit": "Herren",
-    "name": "Strauß Steppweste e.s.motion ten · Herren",
+    "name": "Strauß Steppweste · Herren",
     "sizes": [
       "XS",
       "S",
@@ -201,9 +201,9 @@
   },
   {
     "id": "motion-ten-d",
-    "model": "Strauß Steppweste e.s.motion ten",
+    "model": "Strauß Steppweste",
     "fit": "Damen",
-    "name": "Strauß Steppweste e.s.motion ten · Damen",
+    "name": "Strauß Steppweste · Damen",
     "sizes": [
       "XS",
       "S",
@@ -223,9 +223,9 @@
   },
   {
     "id": "mt500-h",
-    "model": "Decathlon Softshelljacke MT500",
+    "model": "Decathlon Softshelljacke",
     "fit": "Herren",
-    "name": "Decathlon Softshelljacke MT500 · Herren",
+    "name": "Decathlon Softshelljacke · Herren",
     "sizes": [
       "S",
       "M",
@@ -246,9 +246,9 @@
   },
   {
     "id": "mt500-d",
-    "model": "Decathlon Softshelljacke MT500",
+    "model": "Decathlon Softshelljacke",
     "fit": "Damen",
-    "name": "Decathlon Softshelljacke MT500 · Damen",
+    "name": "Decathlon Softshelljacke · Damen",
     "sizes": [
       "XS",
       "S",
@@ -269,9 +269,9 @@
   },
   {
     "id": "jako-power-h",
-    "model": "JAKO Trainingsanzug Power",
+    "model": "JAKO Trainingsanzug",
     "fit": "Herren",
-    "name": "JAKO Trainingsanzug Power · Herren · Stick auf Jacke und Hose",
+    "name": "JAKO Trainingsanzug · Herren · Stick auf Jacke und Hose",
     "sizes": [
       "S",
       "M",
@@ -293,9 +293,9 @@
   },
   {
     "id": "jako-power-d",
-    "model": "JAKO Trainingsanzug Power",
+    "model": "JAKO Trainingsanzug",
     "fit": "Damen",
-    "name": "JAKO Trainingsanzug Power · Damen · Stick auf Jacke und Hose",
+    "name": "JAKO Trainingsanzug · Damen · Stick auf Jacke und Hose",
     "sizes": [
       "34",
       "36",
