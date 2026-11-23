@@ -23,7 +23,7 @@
     ],
     "custom": false,
     "baseCents": 2000,
-    "stitchCents": 950
+    "stitchCents": 1000
   },
   {
     "id": "stretch-h-slim",
@@ -46,7 +46,7 @@
     ],
     "custom": false,
     "baseCents": 2000,
-    "stitchCents": 950
+    "stitchCents": 1000
   },
   {
     "id": "stretch-d-normal",
@@ -70,7 +70,7 @@
     ],
     "custom": false,
     "baseCents": 2000,
-    "stitchCents": 950
+    "stitchCents": 1000
   },
   {
     "id": "polo-h",
